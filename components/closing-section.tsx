@@ -44,8 +44,7 @@ export function ClosingSection() {
 
             <div className="relative space-y-8">
               <p className="text-xl md:text-2xl leading-relaxed text-foreground/90 font-light text-center">
-                I don&apos;t know how this will end, but whatever happens, 
-                I am truly happy to have met you.
+                Whatever tomorrow brings, I am just incredibly happy that today, I get to know you.
               </p>
 
               <div className="flex justify-center py-4">
@@ -53,7 +52,7 @@ export function ClosingSection() {
               </div>
 
               <p className="font-serif text-2xl md:text-3xl text-foreground text-center italic">
-                I didn&apos;t know that loving someone could feel this beautiful.
+                I didn&apos;t know hat caring for someone could feel this beautiful.
               </p>
             </div>
           </div>

@@ -38,7 +38,7 @@ export function HeroSection() {
         </h1>
 
         <p className="text-lg md:text-xl text-muted-foreground font-light leading-relaxed max-w-xl mx-auto text-pretty">
-          I didn&apos;t know that loving someone could feel this beautiful.
+          The shortest poem is a name..
         </p>
 
         <div className="mt-12 flex items-center justify-center">

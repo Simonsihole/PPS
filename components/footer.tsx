@@ -11,7 +11,7 @@ export function Footer() {
         </div>
         
         <p className="font-serif text-2xl md:text-3xl text-foreground mb-4 text-balance">
-          {"\"Never let that smile fade because of anyone.\""}
+          {"\"Never let your smile fade.\""}
         </p>
         
         <p className="text-sm text-muted-foreground font-light">

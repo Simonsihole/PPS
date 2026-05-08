@@ -93,6 +93,16 @@ export function DayOutSection() {
                 of my year. I just want to always be around you. Watching you grow and thrive would make me so happy. 
                 Yes, something as simple as that is enough to bring me absolute joy.
               </p>
+
+              <p>
+                I remember seeing a quote you once shared: &quot;If, in that low-stakes space, a little warmth comes back, 
+                you have your answer.&quot; I want you to know that because of you, that warmth has finally returned to me. 
+                A spark came back to life the moment our day out ended. Everything feels completely different now. 
+                I find myself feeling alive and productive again playing my guitar, singing, finding new inspiration at work, 
+                studying, reading, and writing, just like I am doing right now. To you, it might have just been an ordinary day, 
+                but it helped me in ways I cannot fully explain. Thank you so much. You truly are a wonderfully beautiful soul 
+                to be around.
+              </p>
             </div>
           </div>
         </div>
