@@ -21,19 +21,19 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: '/love.png',
+        url: '/love00.png',
         media: '(prefers-color-scheme: light)',
       },
       {
-        url: '/love.png',
+        url: '/love00.png',
         media: '(prefers-color-scheme: dark)',
       },
       {
-        url: '/love.png',
+        url: '/love00.png',
         type: 'image/svg+xml',
       },
     ],
-    apple: '/love.png',
+    apple: '/love00.png',
   },
 }
 
