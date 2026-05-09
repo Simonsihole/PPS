@@ -29,7 +29,7 @@ const MOMENTS = [
   },
   {
     tag: "A spark",
-    text: `I remember seeing a quote you once shared: "If, in that low-stakes space, a little warmth comes back, you have your answer." I want you to know that because of you, that warmth has finally returned to me. A spark came back to life the moment our day out ended. Everything feels completely different now. I find myself feeling alive and productive again — playing my guitar, singing, finding new inspiration at work, studying, reading, and writing, just like I am doing right now. To you, it might have just been an ordinary day, but it helped me in ways I cannot fully explain. Thank you so much. You truly are a wonderfully beautiful soul to be around.`,
+    text: `I remember seeing a quote you once shared: "If, in that low-stakes space, a little warmth comes back, you have your answer." I want you to know that because of you, that warmth has finally returned to me. A spark came back to life the moment our day out ended. Everything feels completely different now. I find myself feeling alive and productive again playing my guitar, singing, finding new inspiration at work, studying, reading, and writing, just like I am doing right now. To you, it might have just been an ordinary day, but it helped me in ways I cannot fully explain. Thank you so much. You truly are a wonderfully beautiful soul to be around.`,
   },
 ]
 

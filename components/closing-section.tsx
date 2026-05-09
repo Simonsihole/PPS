@@ -105,7 +105,7 @@ export function ClosingSection() {
               </div>
 
               <p className="font-serif text-2xl md:text-3xl text-foreground text-center italic">
-                I didn&apos;t know that caring for someone could feel this beautiful.
+                Simply being around you is a beautiful kind of serendipity.
               </p>
             </div>
           </div>
