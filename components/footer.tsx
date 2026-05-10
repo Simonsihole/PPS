@@ -116,7 +116,7 @@ export function Footer() {
             </p>
 
             <p className="text-sm text-muted-foreground font-light">
-              For Pricilia, with all my heart
+              Written for Pricilia.
             </p>
           </div>
         </div>
