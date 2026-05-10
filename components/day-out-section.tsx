@@ -21,7 +21,7 @@ const MOMENTS = [
   },
   {
     tag: "What it meant",
-    text: `It was all so simple, yet it brought me so much joy. I want to spend days like that every week if possible, but I know I can't force you. I will probably overthink it a thousand times before I can gather the courage to ask you out again. I am just that overthinking guy, but it is surely because I like you so much. Or maybe... maybe it is already love? It might have been nothing out of the ordinary for you, but it meant everything to me.`,
+    text: `It was all so simple, yet it brought me so much joy. I want to spend days like that every week if possible, but I know I can't force you. I will probably overthink it a thousand times before I can gather the courage to ask you out again. I am just that overthinking guy, but it is surely because I like you so much. Or maybe... maybe it is something else? It might have been nothing out of the ordinary for you, but it meant everything to me.`,
   },
   {
     tag: "After",

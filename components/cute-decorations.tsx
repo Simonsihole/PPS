@@ -2,249 +2,256 @@
 
 import { useEffect, useState } from "react"
 
-// Cute bunny SVG
-function Bunny({ className }: { className?: string }) {
+// ─── Soft kawaii bunny — gradient fills, rounder, dreamier ───────────────────
+function Bunny() {
   return (
-    <svg viewBox="0 0 100 100" className={className} fill="currentColor">
+    <svg viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      <defs>
+        <radialGradient id="bunnyBody" cx="50%" cy="60%" r="55%">
+          <stop offset="0%" stopColor="#fff5f7"/>
+          <stop offset="100%" stopColor="#fce7f3"/>
+        </radialGradient>
+        <radialGradient id="bunnyEar" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#fce7f3"/>
+          <stop offset="100%" stopColor="#fbcfe8"/>
+        </radialGradient>
+      </defs>
       {/* Ears */}
-      <ellipse cx="35" cy="25" rx="8" ry="20" className="fill-current" />
-      <ellipse cx="65" cy="25" rx="8" ry="20" className="fill-current" />
-      <ellipse cx="35" cy="25" rx="5" ry="15" className="fill-pink-200" />
-      <ellipse cx="65" cy="25" rx="5" ry="15" className="fill-pink-200" />
+      <ellipse cx="28" cy="22" rx="8"  ry="20" fill="url(#bunnyBody)" opacity="0.95"/>
+      <ellipse cx="52" cy="22" rx="8"  ry="20" fill="url(#bunnyBody)" opacity="0.95"/>
+      <ellipse cx="28" cy="22" rx="4.5" ry="14" fill="url(#bunnyEar)" opacity="0.8"/>
+      <ellipse cx="52" cy="22" rx="4.5" ry="14" fill="url(#bunnyEar)" opacity="0.8"/>
       {/* Head */}
-      <circle cx="50" cy="55" r="30" className="fill-current" />
-      {/* Eyes */}
-      <circle cx="40" cy="50" r="4" className="fill-gray-800" />
-      <circle cx="60" cy="50" r="4" className="fill-gray-800" />
-      <circle cx="41" cy="49" r="1.5" className="fill-white" />
-      <circle cx="61" cy="49" r="1.5" className="fill-white" />
-      {/* Nose */}
-      <ellipse cx="50" cy="60" rx="3" ry="2" className="fill-pink-300" />
+      <ellipse cx="40" cy="62" rx="28" ry="26" fill="url(#bunnyBody)"/>
       {/* Cheeks */}
-      <ellipse cx="32" cy="58" rx="5" ry="3" className="fill-pink-200 opacity-60" />
-      <ellipse cx="68" cy="58" rx="5" ry="3" className="fill-pink-200 opacity-60" />
-      {/* Mouth */}
-      <path d="M47 64 Q50 68 53 64" stroke="#666" strokeWidth="1.5" fill="none" />
-    </svg>
-  )
-}
-
-// Cute cat SVG
-function Cat({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 100 100" className={className} fill="currentColor">
-      {/* Ears */}
-      <polygon points="25,45 35,15 45,45" className="fill-current" />
-      <polygon points="55,45 65,15 75,45" className="fill-current" />
-      <polygon points="30,42 35,22 40,42" className="fill-pink-200" />
-      <polygon points="60,42 65,22 70,42" className="fill-pink-200" />
-      {/* Head */}
-      <ellipse cx="50" cy="58" rx="30" ry="26" className="fill-current" />
+      <ellipse cx="22" cy="66" rx="7" ry="5" fill="#fda4af" opacity="0.35"/>
+      <ellipse cx="58" cy="66" rx="7" ry="5" fill="#fda4af" opacity="0.35"/>
       {/* Eyes */}
-      <ellipse cx="38" cy="52" rx="5" ry="6" className="fill-gray-800" />
-      <ellipse cx="62" cy="52" rx="5" ry="6" className="fill-gray-800" />
-      <ellipse cx="39" cy="50" rx="2" ry="2.5" className="fill-white" />
-      <ellipse cx="63" cy="50" rx="2" ry="2.5" className="fill-white" />
+      <circle cx="32" cy="58" r="4"   fill="#3d2c2c"/>
+      <circle cx="48" cy="58" r="4"   fill="#3d2c2c"/>
+      <circle cx="33" cy="56.5" r="1.5" fill="white"/>
+      <circle cx="49" cy="56.5" r="1.5" fill="white"/>
+      {/* Tiny sparkle in eye */}
+      <circle cx="35" cy="59.5" r="0.7" fill="white" opacity="0.7"/>
+      <circle cx="51" cy="59.5" r="0.7" fill="white" opacity="0.7"/>
       {/* Nose */}
-      <polygon points="50,60 47,64 53,64" className="fill-pink-300" />
-      {/* Cheeks */}
-      <ellipse cx="28" cy="62" rx="6" ry="4" className="fill-pink-200 opacity-60" />
-      <ellipse cx="72" cy="62" rx="6" ry="4" className="fill-pink-200 opacity-60" />
-      {/* Whiskers */}
-      <line x1="20" y1="58" x2="32" y2="60" stroke="#999" strokeWidth="1" />
-      <line x1="20" y1="64" x2="32" y2="64" stroke="#999" strokeWidth="1" />
-      <line x1="68" y1="60" x2="80" y2="58" stroke="#999" strokeWidth="1" />
-      <line x1="68" y1="64" x2="80" y2="64" stroke="#999" strokeWidth="1" />
+      <ellipse cx="40" cy="67" rx="3.5" ry="2.5" fill="#fda4af"/>
       {/* Mouth */}
-      <path d="M47 67 Q50 71 53 67" stroke="#666" strokeWidth="1.5" fill="none" />
+      <path d="M37 71 Q40 74.5 43 71" stroke="#d4a0a0" strokeWidth="1.3" fill="none" strokeLinecap="round"/>
     </svg>
   )
 }
 
-// Cute bear SVG
-function Bear({ className }: { className?: string }) {
+// ─── Soft glowing heart ───────────────────────────────────────────────────────
+function Heart({ gold = false }: { gold?: boolean }) {
+  const g1 = gold ? "#fef3c7" : "#fce7f3"
+  const g2 = gold ? "#fbbf24" : "#f9a8d4"
+  const id = gold ? "heartGold" : "heartPink"
   return (
-    <svg viewBox="0 0 100 100" className={className} fill="currentColor">
-      {/* Ears */}
-      <circle cx="25" cy="30" r="12" className="fill-current" />
-      <circle cx="75" cy="30" r="12" className="fill-current" />
-      <circle cx="25" cy="30" r="7" className="fill-pink-200" />
-      <circle cx="75" cy="30" r="7" className="fill-pink-200" />
-      {/* Head */}
-      <circle cx="50" cy="55" r="32" className="fill-current" />
-      {/* Eyes */}
-      <circle cx="38" cy="50" r="4" className="fill-gray-800" />
-      <circle cx="62" cy="50" r="4" className="fill-gray-800" />
-      <circle cx="39" cy="49" r="1.5" className="fill-white" />
-      <circle cx="63" cy="49" r="1.5" className="fill-white" />
-      {/* Muzzle */}
-      <ellipse cx="50" cy="64" rx="12" ry="9" className="fill-amber-50" />
-      {/* Nose */}
-      <ellipse cx="50" cy="60" rx="4" ry="3" className="fill-amber-800" />
-      {/* Cheeks */}
-      <ellipse cx="28" cy="58" rx="5" ry="3" className="fill-pink-200 opacity-60" />
-      <ellipse cx="72" cy="58" rx="5" ry="3" className="fill-pink-200 opacity-60" />
-      {/* Mouth */}
-      <path d="M46 67 Q50 72 54 67" stroke="#8B4513" strokeWidth="1.5" fill="none" />
+    <svg viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      <defs>
+        <radialGradient id={id} cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stopColor={g1}/>
+          <stop offset="100%" stopColor={g2}/>
+        </radialGradient>
+      </defs>
+      <path
+        d="M12 20 C12 20 2 13 2 7 C2 4.2 4.2 2 7 2 C8.8 2 10.3 2.9 12 5 C13.7 2.9 15.2 2 17 2 C19.8 2 22 4.2 22 7 C22 13 12 20 12 20Z"
+        fill={`url(#${id})`} opacity="0.85"
+      />
+      {/* Tiny inner highlight */}
+      <ellipse cx="9" cy="7" rx="2.5" ry="1.8" fill="white" opacity="0.3" transform="rotate(-20 9 7)"/>
     </svg>
   )
 }
 
-// Small heart
-function Heart({ className }: { className?: string }) {
+// ─── Soft 4-pointed star ──────────────────────────────────────────────────────
+function Star({ gold = false }: { gold?: boolean }) {
+  const g1 = gold ? "#fef9c3" : "#fce7f3"
+  const g2 = gold ? "#f59e0b" : "#f9a8d4"
+  const id = gold ? "starGold" : "starPink"
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
-      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      <defs>
+        <radialGradient id={id} cx="50%" cy="50%" r="55%">
+          <stop offset="0%" stopColor={g1}/>
+          <stop offset="100%" stopColor={g2}/>
+        </radialGradient>
+      </defs>
+      <path
+        d="M12 0 L13.5 10.5 L24 12 L13.5 13.5 L12 24 L10.5 13.5 L0 12 L10.5 10.5 Z"
+        fill={`url(#${id})`} opacity="0.9"
+      />
+      {/* Center glow dot */}
+      <circle cx="12" cy="12" r="2.5" fill="white" opacity="0.5"/>
     </svg>
   )
 }
 
-// Small star
-function Star({ className }: { className?: string }) {
+// ─── Soft kawaii flower ───────────────────────────────────────────────────────
+function Flower({ gold = false }: { gold?: boolean }) {
+  const petal = gold ? "#fde68a" : "#fbcfe8"
+  const petal2 = gold ? "#fbbf24" : "#f9a8d4"
+  const id = gold ? "flowerGold" : "flowerPink"
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
-      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+    <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      <defs>
+        <radialGradient id={id} cx="50%" cy="50%" r="55%">
+          <stop offset="0%" stopColor={petal}/>
+          <stop offset="100%" stopColor={petal2}/>
+        </radialGradient>
+      </defs>
+      {/* 6 rounded petals */}
+      {[0, 60, 120, 180, 240, 300].map((deg, i) => (
+        <ellipse key={i}
+          cx="30" cy="30" rx="9" ry="15"
+          fill={`url(#${id})`} opacity={i % 2 === 0 ? 0.85 : 0.7}
+          transform={`rotate(${deg} 30 30) translate(0 -13)`}
+        />
+      ))}
+      {/* Center */}
+      <circle cx="30" cy="30" r="9" fill="#fef9c3"/>
+      <circle cx="30" cy="30" r="5.5" fill={gold ? "#f59e0b" : "#fbbf24"} opacity="0.8"/>
+      {/* Center dots */}
+      {[0, 90, 180, 270].map((deg, i) => {
+        const r = (deg * Math.PI) / 180
+        return <circle key={i} cx={30 + 3 * Math.sin(r)} cy={30 - 3 * Math.cos(r)} r="1" fill="white" opacity="0.6"/>
+      })}
     </svg>
   )
 }
 
-// Small flower
-function Flower({ className }: { className?: string }) {
+// ─── Tiny dot accent ──────────────────────────────────────────────────────────
+function Dot({ gold = false }: { gold?: boolean }) {
   return (
-    <svg viewBox="0 0 100 100" className={className} fill="currentColor">
-      <ellipse cx="50" cy="25" rx="15" ry="20" className="fill-pink-300" />
-      <ellipse cx="25" cy="50" rx="20" ry="15" className="fill-pink-300" />
-      <ellipse cx="75" cy="50" rx="20" ry="15" className="fill-pink-300" />
-      <ellipse cx="50" cy="75" rx="15" ry="20" className="fill-pink-300" />
-      <ellipse cx="30" cy="30" rx="15" ry="15" className="fill-pink-200" />
-      <ellipse cx="70" cy="30" rx="15" ry="15" className="fill-pink-200" />
-      <ellipse cx="30" cy="70" rx="15" ry="15" className="fill-pink-200" />
-      <ellipse cx="70" cy="70" rx="15" ry="15" className="fill-pink-200" />
-      <circle cx="50" cy="50" r="12" className="fill-yellow-300" />
-    </svg>
+    <div
+      className="w-full h-full rounded-full"
+      style={{
+        background: gold
+          ? "radial-gradient(circle at 35% 35%, #fef3c7, #fbbf24)"
+          : "radial-gradient(circle at 35% 35%, #fce7f3, #f9a8d4)",
+        opacity: 0.7,
+        boxShadow: gold
+          ? "0 0 6px rgba(251,191,36,0.4)"
+          : "0 0 6px rgba(249,168,212,0.4)",
+      }}
+    />
   )
 }
 
-interface Decoration {
-  id: number
-  type: "bunny" | "cat" | "bear" | "heart" | "star" | "flower"
-  x: number
-  y: number
-  size: number
-  delay: number
-  duration: number
+// ─── Decoration config — fixed positions, no Math.random ─────────────────────
+// depth: 1 = far (smaller, more transparent), 3 = near (larger, more opaque)
+const DESKTOP_DECORATIONS = [
+  // Left column
+  { id: 1,  side: "left",  x: 1.5, y: 8,  type: "bunny",  size: 42, delay: 0.0, dur: 5.0, depth: 2, gold: false },
+  { id: 2,  side: "left",  x: 2.5, y: 26, type: "heart",  size: 14, delay: 0.6, dur: 3.8, depth: 1, gold: false },
+  { id: 3,  side: "left",  x: 0.5, y: 40, type: "star",   size: 16, delay: 1.2, dur: 4.2, depth: 1, gold: true  },
+  { id: 4,  side: "left",  x: 2.0, y: 54, type: "flower", size: 26, delay: 0.4, dur: 4.8, depth: 2, gold: false },
+  { id: 5,  side: "left",  x: 0.8, y: 68, type: "heart",  size: 18, delay: 1.0, dur: 3.5, depth: 2, gold: true  },
+  { id: 6,  side: "left",  x: 2.5, y: 80, type: "star",   size: 13, delay: 0.2, dur: 4.0, depth: 1, gold: false },
+  { id: 7,  side: "left",  x: 1.0, y: 91, type: "bunny",  size: 34, delay: 1.5, dur: 5.2, depth: 1, gold: false },
+  { id: 8,  side: "left",  x: 3.5, y: 17, type: "dot",    size: 8,  delay: 0.8, dur: 3.2, depth: 1, gold: true  },
+  { id: 9,  side: "left",  x: 3.0, y: 47, type: "dot",    size: 6,  delay: 1.8, dur: 3.8, depth: 1, gold: false },
+
+  // Right column
+  { id: 10, side: "right", x: 96.5, y: 10, type: "star",   size: 18, delay: 0.3, dur: 4.1, depth: 2, gold: true  },
+  { id: 11, side: "right", x: 95.5, y: 24, type: "bunny",  size: 38, delay: 0.9, dur: 5.1, depth: 2, gold: false },
+  { id: 12, side: "right", x: 97.0, y: 38, type: "heart",  size: 16, delay: 0.1, dur: 3.6, depth: 1, gold: false },
+  { id: 13, side: "right", x: 95.0, y: 51, type: "flower", size: 24, delay: 1.3, dur: 4.7, depth: 2, gold: true  },
+  { id: 14, side: "right", x: 96.5, y: 64, type: "star",   size: 14, delay: 0.5, dur: 3.9, depth: 1, gold: false },
+  { id: 15, side: "right", x: 95.5, y: 76, type: "heart",  size: 20, delay: 1.1, dur: 4.3, depth: 2, gold: true  },
+  { id: 16, side: "right", x: 97.0, y: 87, type: "flower", size: 22, delay: 0.7, dur: 4.6, depth: 1, gold: false },
+  { id: 17, side: "right", x: 94.5, y: 18, type: "dot",    size: 7,  delay: 1.6, dur: 3.3, depth: 1, gold: false },
+  { id: 18, side: "right", x: 94.0, y: 44, type: "dot",    size: 9,  delay: 0.4, dur: 3.7, depth: 1, gold: true  },
+]
+
+const MOBILE_DECORATIONS = [
+  // Left — very edge, small
+  { id: 1,  side: "left",  x: -1,  y: 10, type: "bunny",  size: 26, delay: 0.0, dur: 4.8, depth: 1, gold: false },
+  { id: 2,  side: "left",  x: 0,   y: 28, type: "heart",  size: 11, delay: 0.5, dur: 3.5, depth: 1, gold: false },
+  { id: 3,  side: "left",  x: -1,  y: 46, type: "star",   size: 12, delay: 1.0, dur: 4.0, depth: 1, gold: true  },
+  { id: 4,  side: "left",  x: 0,   y: 63, type: "flower", size: 18, delay: 0.3, dur: 4.5, depth: 1, gold: false },
+  { id: 5,  side: "left",  x: -1,  y: 80, type: "heart",  size: 13, delay: 0.8, dur: 3.8, depth: 1, gold: true  },
+
+  // Right — pull inward a bit more on mobile
+  { id: 6,  side: "right", x: 83,  y: 8,  type: "star",   size: 12, delay: 0.2, dur: 3.9, depth: 1, gold: true  },
+  { id: 7,  side: "right", x: 82,  y: 25, type: "bunny",  size: 24, delay: 0.7, dur: 4.9, depth: 1, gold: false },
+  { id: 8,  side: "right", x: 83,  y: 43, type: "heart",  size: 11, delay: 0.4, dur: 3.6, depth: 1, gold: false },
+  { id: 9,  side: "right", x: 82,  y: 60, type: "flower", size: 17, delay: 1.1, dur: 4.4, depth: 1, gold: true  },
+  { id: 10, side: "right", x: 83,  y: 78, type: "star",   size: 13, delay: 0.6, dur: 4.1, depth: 1, gold: false },
+]
+
+type DecorationType = "bunny" | "heart" | "star" | "flower" | "dot"
+
+function renderShape(type: DecorationType, gold: boolean) {
+  switch (type) {
+    case "bunny":  return <Bunny />
+    case "heart":  return <Heart gold={gold} />
+    case "star":   return <Star  gold={gold} />
+    case "flower": return <Flower gold={gold} />
+    case "dot":    return <Dot   gold={gold} />
+  }
 }
 
 export function CuteDecorations() {
-  const [decorations, setDecorations] = useState<Decoration[]>([])
+  const [isMobile, setIsMobile] = useState(false)
+  const [mounted, setMounted]   = useState(false)
 
   useEffect(() => {
-    // Check if mobile
-    const isMobile = window.innerWidth < 768
-    
-    // Create decorations with different positions for mobile
-    const items: Decoration[] = isMobile ? [
-      // Mobile: Left side decorations - smaller and pushed to edge
-      { id: 1, type: "bunny", x: -2, y: 15, size: 28, delay: 0, duration: 4 },
-      { id: 2, type: "heart", x: 0, y: 35, size: 12, delay: 0.5, duration: 3 },
-      { id: 3, type: "cat", x: -3, y: 55, size: 26, delay: 1, duration: 4.5 },
-      { id: 4, type: "star", x: 1, y: 75, size: 10, delay: 0.3, duration: 3.5 },
-      { id: 5, type: "flower", x: -2, y: 90, size: 18, delay: 0.8, duration: 4 },
-      
-      // Mobile: Right side decorations - moved toward middle (around 80-85%)
-      { id: 6, type: "cat", x: 82, y: 12, size: 26, delay: 0.2, duration: 4.2 },
-      { id: 7, type: "star", x: 84, y: 30, size: 12, delay: 0.7, duration: 3.2 },
-      { id: 8, type: "bear", x: 80, y: 48, size: 28, delay: 0.4, duration: 4.8 },
-      { id: 9, type: "heart", x: 85, y: 68, size: 14, delay: 0.6, duration: 3.8 },
-      { id: 10, type: "bunny", x: 82, y: 85, size: 24, delay: 0.9, duration: 4.3 },
-    ] : [
-      // Desktop: Left side decorations
-      { id: 1, type: "bunny", x: 1, y: 15, size: 40, delay: 0, duration: 4 },
-      { id: 2, type: "heart", x: 2, y: 35, size: 16, delay: 0.5, duration: 3 },
-      { id: 3, type: "cat", x: 0, y: 55, size: 36, delay: 1, duration: 4.5 },
-      { id: 4, type: "star", x: 3, y: 75, size: 14, delay: 0.3, duration: 3.5 },
-      { id: 5, type: "flower", x: 1, y: 90, size: 24, delay: 0.8, duration: 4 },
-      
-      // Desktop: Right side decorations
-      { id: 6, type: "cat", x: 96, y: 12, size: 36, delay: 0.2, duration: 4.2 },
-      { id: 7, type: "star", x: 95, y: 30, size: 18, delay: 0.7, duration: 3.2 },
-      { id: 8, type: "bear", x: 96, y: 48, size: 38, delay: 0.4, duration: 4.8 },
-      { id: 9, type: "heart", x: 97, y: 68, size: 20, delay: 0.6, duration: 3.8 },
-      { id: 10, type: "bunny", x: 96, y: 85, size: 34, delay: 0.9, duration: 4.3 },
-      
-      // Desktop only: Extra small accents
-      { id: 11, type: "heart", x: 4, y: 25, size: 12, delay: 1.2, duration: 3 },
-      { id: 12, type: "star", x: 94, y: 40, size: 14, delay: 1.5, duration: 3.3 },
-      { id: 13, type: "flower", x: 95, y: 58, size: 18, delay: 1.1, duration: 3.7 },
-      { id: 14, type: "heart", x: 3, y: 65, size: 12, delay: 1.4, duration: 3.1 },
-    ]
-    setDecorations(items)
+    setIsMobile(window.innerWidth < 768)
+    setMounted(true)
+    const onResize = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener("resize", onResize)
+    return () => window.removeEventListener("resize", onResize)
   }, [])
 
-  const renderDecoration = (type: Decoration["type"], className: string) => {
-    switch (type) {
-      case "bunny":
-        return <Bunny className={className} />
-      case "cat":
-        return <Cat className={className} />
-      case "bear":
-        return <Bear className={className} />
-      case "heart":
-        return <Heart className={className} />
-      case "star":
-        return <Star className={className} />
-      case "flower":
-        return <Flower className={className} />
-    }
-  }
+  if (!mounted) return null
 
-  const getColor = (type: Decoration["type"]) => {
-    switch (type) {
-      case "bunny":
-        return "text-white"
-      case "cat":
-        return "text-amber-100"
-      case "bear":
-        return "text-amber-200"
-      case "heart":
-        return "text-pink-300"
-      case "star":
-        return "text-yellow-300"
-      case "flower":
-        return "text-pink-200"
-    }
-  }
+  const items = isMobile ? MOBILE_DECORATIONS : DESKTOP_DECORATIONS
 
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      {decorations.map((dec) => (
-        <div
-          key={dec.id}
-          className="absolute"
-          style={{
-            left: `${dec.x}%`,
-            top: `${dec.y}%`,
-            width: dec.size,
-            height: dec.size,
-            animation: `float ${dec.duration}s ease-in-out infinite`,
-            animationDelay: `${dec.delay}s`,
-            opacity: 0.7,
-          }}
-        >
-          {renderDecoration(dec.type, `w-full h-full ${getColor(dec.type)} drop-shadow-sm`)}
-        </div>
-      ))}
-      
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px) rotate(0deg);
-          }
-          50% {
-            transform: translateY(-10px) rotate(3deg);
-          }
+    <>
+      <style>{`
+        @keyframes floatUp {
+          0%, 100% { transform: translateY(0px)   rotate(0deg);  }
+          50%       { transform: translateY(-9px)  rotate(2deg);  }
+        }
+        @keyframes floatUpAlt {
+          0%, 100% { transform: translateY(0px)   rotate(0deg);  }
+          50%       { transform: translateY(-7px)  rotate(-2deg); }
+        }
+        @keyframes sway {
+          0%, 100% { transform: translateX(0px);  }
+          50%       { transform: translateX(4px);  }
         }
       `}</style>
-    </div>
+
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        {items.map((dec) => {
+          // depth layering: far = smaller opacity, near = more visible
+          const baseOpacity = dec.depth === 1 ? 0.38 : dec.depth === 2 ? 0.52 : 0.62
+          const animName    = dec.id % 3 === 0 ? "floatUpAlt" : dec.id % 2 === 0 ? "sway" : "floatUp"
+
+          return (
+            <div
+              key={dec.id}
+              className="absolute"
+              style={{
+                left: `${dec.x}%`,
+                top:  `${dec.y}%`,
+                width:  dec.size,
+                height: dec.size,
+                opacity: baseOpacity,
+                animation: `${animName} ${dec.dur}s ease-in-out ${dec.delay}s infinite`,
+                // far items get a subtle blur for depth
+                filter: dec.depth === 1 ? "blur(0.4px)" : "none",
+              }}
+            >
+              {renderShape(dec.type as DecorationType, dec.gold)}
+            </div>
+          )
+        })}
+      </div>
+    </>
   )
 }
