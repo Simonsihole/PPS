@@ -361,7 +361,7 @@ export function FlowerGarden() {
   const [flowers, setFlowers] = useState<Flower[] | null>(null)
   const [visible, setVisible] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
-  const CONTAINER_H = 96   // matches clamp max
+  const CONTAINER_H = 120  // matches clamp max
 
   useEffect(() => {
     setFlowers(generateFlowers())
@@ -404,8 +404,12 @@ export function FlowerGarden() {
       <div
         ref={ref}
         aria-hidden="true"
-        className="relative w-full overflow-hidden pointer-events-none select-none"
-        style={{ height: "clamp(60px, 11vw, 96px)" }}
+        className="relative w-full pointer-events-none select-none"
+        style={{
+          height: "clamp(88px, 22vw, 120px)",
+          overflowX: "hidden",
+          overflowY: "visible",
+        }}
       >
         <GrassTufts />
         <FloatingPetals visible={visible} />
