@@ -6,6 +6,7 @@ import { ClosingSection } from "@/components/closing-section"
 import { Footer } from "@/components/footer"
 import { AudioPlayer } from "@/components/audio-player"
 import { CuteDecorations } from "@/components/cute-decorations"
+import { ReplySection } from "@/components/ReplySection"
 
 export default function TributePage() {
   return (
@@ -17,6 +18,7 @@ export default function TributePage() {
       <DayOutSection />
       <ReflectionSection />
       <ClosingSection />
+      <ReplySection />
       <Footer />
     </main>
   )
