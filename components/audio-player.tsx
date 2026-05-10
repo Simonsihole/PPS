@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react"
 
-// Floating music note particles when playing
 const NOTES = [
   { id: 0, x: 18, delay: 0.0, dur: 2.4, symbol: "♪" },
   { id: 1, x: 60, delay: 0.8, dur: 2.9, symbol: "♫" },
@@ -10,10 +9,9 @@ const NOTES = [
 ]
 
 export function AudioPlayer() {
-  const audioRef   = useRef<HTMLAudioElement>(null)
-  const playerRef  = useRef<HTMLDivElement>(null)
+  const audioRef  = useRef<HTMLAudioElement>(null)
+  const playerRef = useRef<HTMLDivElement>(null)
   const [isPlaying, setIsPlaying]   = useState(false)
-  const [isMuted, setIsMuted]       = useState(false)
   const [audioError, setAudioError] = useState<string | null>(null)
   const [position, setPosition]     = useState({ x: 20, y: 20 })
   const [isDragging, setIsDragging] = useState(false)
@@ -26,7 +24,10 @@ export function AudioPlayer() {
     const onErr = (e: Event) => setAudioError((e.target as HTMLAudioElement).error?.message ?? "Audio failed")
     audio.addEventListener("canplaythrough", onOk)
     audio.addEventListener("error", onErr)
-    return () => { audio.removeEventListener("canplaythrough", onOk); audio.removeEventListener("error", onErr) }
+    return () => {
+      audio.removeEventListener("canplaythrough", onOk)
+      audio.removeEventListener("error", onErr)
+    }
   }, [])
 
   useEffect(() => {
@@ -39,8 +40,8 @@ export function AudioPlayer() {
         y: Math.max(0, Math.min(cy - dragOffset.current.y, maxY)),
       })
     }
-    const onMM  = (e: MouseEvent)  => move(e.clientX, e.clientY)
-    const onTM  = (e: TouchEvent)  => move(e.touches[0].clientX, e.touches[0].clientY)
+    const onMM  = (e: MouseEvent) => move(e.clientX, e.clientY)
+    const onTM  = (e: TouchEvent) => move(e.touches[0].clientX, e.touches[0].clientY)
     const onEnd = () => setIsDragging(false)
     window.addEventListener("mousemove", onMM)
     window.addEventListener("mouseup", onEnd)
@@ -69,13 +70,6 @@ export function AudioPlayer() {
       if (isPlaying) { audio.pause(); setIsPlaying(false) }
       else           { await audio.play(); setIsPlaying(true) }
     } catch {}
-  }
-
-  const toggleMute = () => {
-    const audio = audioRef.current
-    if (!audio) return
-    audio.muted = !audio.muted
-    setIsMuted(!isMuted)
   }
 
   return (
@@ -121,29 +115,22 @@ export function AudioPlayer() {
           {/* Pulsing glow rings — only when playing */}
           {isPlaying && (
             <>
-              <div
-                className="absolute inset-0 rounded-full"
-                style={{
-                  background: "rgba(249,168,212,0.35)",
-                  animation: "ringPulse 1.6s ease-out infinite",
-                  zIndex: -1,
-                }}
-              />
-              <div
-                className="absolute inset-0 rounded-full"
-                style={{
-                  background: "rgba(249,168,212,0.2)",
-                  animation: "ringPulse2 1.6s ease-out 0.4s infinite",
-                  zIndex: -1,
-                }}
-              />
+              <div className="absolute inset-0 rounded-full" style={{
+                background: "rgba(249,168,212,0.35)",
+                animation: "ringPulse 1.6s ease-out infinite",
+                zIndex: -1,
+              }}/>
+              <div className="absolute inset-0 rounded-full" style={{
+                background: "rgba(249,168,212,0.2)",
+                animation: "ringPulse2 1.6s ease-out 0.4s infinite",
+                zIndex: -1,
+              }}/>
             </>
           )}
 
           {/* Floating music notes */}
           {isPlaying && NOTES.map(n => (
-            <div
-              key={n.id}
+            <div key={n.id}
               className="absolute pointer-events-none font-serif"
               style={{
                 left: `${n.x}%`,
@@ -157,9 +144,9 @@ export function AudioPlayer() {
             </div>
           ))}
 
-          {/* Bunny SVG */}
+          {/* Bunny — tap to play/pause, drag to move */}
           <svg
-            viewBox="0 0 100 120"
+            viewBox="0 -8 100 128"
             className="w-16 h-20 md:w-20 md:h-24 drop-shadow-lg"
             style={{
               animation: isPlaying ? "bunnyBob 1.2s ease-in-out infinite" : "none",
@@ -178,7 +165,7 @@ export function AudioPlayer() {
             {/* Head / body */}
             <ellipse cx="50" cy="70" rx="35" ry="38" fill="#FFF5F5" stroke="#FECDD3" strokeWidth="2"/>
 
-            {/* Subtle blush gradient on cheeks */}
+            {/* Cheeks */}
             <ellipse cx="28" cy="72" rx="7" ry="5" fill="#FECDD3" opacity="0.55"/>
             <ellipse cx="72" cy="72" rx="7" ry="5" fill="#FECDD3" opacity="0.55"/>
 
@@ -187,7 +174,6 @@ export function AudioPlayer() {
               <>
                 <path d="M34 62 Q39 57 44 62" stroke="#4B5563" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
                 <path d="M56 62 Q61 57 66 62" stroke="#4B5563" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-                {/* Little sparkles next to happy eyes */}
                 <circle cx="30" cy="58" r="1.2" fill="#fbbf24" opacity="0.7"/>
                 <circle cx="70" cy="58" r="1.2" fill="#fbbf24" opacity="0.7"/>
               </>
@@ -206,7 +192,7 @@ export function AudioPlayer() {
             {/* Mouth */}
             <path d="M46 78 Q50 83 54 78" stroke="#9CA3AF" strokeWidth="1.5" fill="none"/>
 
-            {/* Belly play/pause */}
+            {/* Belly play/pause indicator */}
             {isPlaying ? (
               <>
                 <rect x="43" y="88" width="5" height="12" rx="1.5" fill="#FDA4AF"/>
@@ -217,28 +203,7 @@ export function AudioPlayer() {
             )}
           </svg>
 
-          {/* Mute button */}
-          <button
-            onClick={e => { e.stopPropagation(); toggleMute() }}
-            className="absolute -bottom-1 -right-1 w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center shadow-md transition-all"
-            style={{
-              background: "white",
-              border: "2px solid rgba(251,207,232,0.8)",
-              boxShadow: "0 2px 8px rgba(244,114,182,0.2)",
-            }}
-            aria-label={isMuted ? "Unmute" : "Mute"}
-          >
-            {isMuted ? (
-              <svg viewBox="0 0 24 24" className="w-3 h-3 md:w-4 md:h-4" fill="rgba(244,114,182,0.8)">
-                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
-              </svg>
-            ) : (
-              <svg viewBox="0 0 24 24" className="w-3 h-3 md:w-4 md:h-4" fill="rgba(244,114,182,0.8)">
-                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-              </svg>
-            )}
-          </button>
-
+          {/* Audio error badge */}
           {audioError && (
             <div className="absolute -top-2 left-1/2 -translate-x-1/2 bg-red-50 text-red-400 text-xs px-2 py-0.5 rounded-full whitespace-nowrap border border-red-100">
               No audio
