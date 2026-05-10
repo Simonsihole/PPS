@@ -56,18 +56,25 @@ function FloatingPetal({ x, y, gold, delay }: { x: number; y: number; gold: bool
   )
 }
 
-// ─── Delete button with inline password prompt ────────────────────────────────
+// ─── Delete button ────────────────────────────────────────────────────────────
+// On desktop: hidden until hover. On mobile: always visible at low opacity.
+// Uses a touch-friendly tap target (min 44×44px area).
 function DeleteButton({ onDelete }: { onDelete: () => Promise<void> }) {
   const [open, setOpen]       = useState(false)
   const [pw, setPw]           = useState("")
   const [shake, setShake]     = useState(false)
   const [loading, setLoading] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    setIsMobile(window.matchMedia("(hover: none)").matches)
+  }, [])
 
   const handleOpen = () => {
     setOpen(true)
     setPw("")
-    setTimeout(() => inputRef.current?.focus(), 50)
+    setTimeout(() => inputRef.current?.focus(), 80)
   }
 
   const handleConfirm = async () => {
@@ -84,34 +91,55 @@ function DeleteButton({ onDelete }: { onDelete: () => Promise<void> }) {
   }
 
   const handleKey = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") handleConfirm()
+    if (e.key === "Enter")  handleConfirm()
     if (e.key === "Escape") { setOpen(false); setPw("") }
   }
 
   if (!open) {
     return (
-      <button
-        onClick={handleOpen}
-        className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 absolute top-4 right-4 p-1 rounded-full"
-        style={{ background: "rgba(253,242,248,0.8)", border: "1px solid rgba(249,168,212,0.3)" }}
-        title="Delete message"
-        aria-label="Delete message"
-      >
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-          <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="rgba(244,114,182,0.7)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </button>
+      // Outer div is the full tap-target (44×44 min), button sits inside
+      <div className="absolute top-2 right-2 flex items-center justify-center" style={{ width: 44, height: 44 }}>
+        <button
+          onClick={handleOpen}
+          aria-label="Delete message"
+          title="Delete message"
+          style={{
+            width: 28, height: 28,
+            borderRadius: "50%",
+            background: "rgba(253,242,248,0.9)",
+            border: "1px solid rgba(249,168,212,0.35)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            cursor: "pointer",
+            // Always visible on mobile (opacity 0.55), hover-reveal on desktop
+            opacity: isMobile ? 0.55 : undefined,
+            transition: "opacity 0.2s ease, box-shadow 0.2s ease",
+            boxShadow: "0 1px 4px rgba(244,114,182,0.1)",
+          }}
+          // Desktop hover handled via inline onMouse events since Tailwind group-hover doesn't work cross-platform
+          onMouseEnter={e => { if (!isMobile) (e.currentTarget as HTMLButtonElement).style.opacity = "1" }}
+          onMouseLeave={e => { if (!isMobile) (e.currentTarget as HTMLButtonElement).style.opacity = "0" }}
+        >
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+            <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"
+              stroke="rgba(244,114,182,0.75)" strokeWidth="2.2"
+              strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+      </div>
     )
   }
 
+  // Password prompt — wider on mobile
   return (
     <div
-      className="absolute top-3 right-3 flex items-center gap-2 px-3 py-1.5 rounded-full"
+      className="absolute top-3 right-3 flex items-center gap-2 px-3 py-2 rounded-2xl z-10"
       style={{
-        background: "rgba(255,255,255,0.95)",
-        border: "1px solid rgba(249,168,212,0.4)",
-        boxShadow: "0 4px 12px rgba(244,114,182,0.15)",
+        background: "rgba(255,255,255,0.97)",
+        border: "1px solid rgba(249,168,212,0.45)",
+        boxShadow: "0 4px 16px rgba(244,114,182,0.18)",
         animation: shake ? "shake 0.5s ease" : "none",
+        // Ensure it doesn't clip on narrow screens
+        maxWidth: "calc(100% - 16px)",
       }}
     >
       <input
@@ -122,26 +150,40 @@ function DeleteButton({ onDelete }: { onDelete: () => Promise<void> }) {
         onKeyDown={handleKey}
         placeholder="password"
         className="outline-none text-xs font-light text-foreground/70 placeholder:text-muted-foreground/40 bg-transparent"
-        style={{ width: 72 }}
+        style={{
+          // Wider on mobile so the keyboard doesn't obscure it
+          width: isMobile ? 96 : 72,
+          minWidth: 0,
+        }}
       />
       <button
         onClick={handleConfirm}
         disabled={loading}
-        className="text-xs px-2 py-0.5 rounded-full font-light transition-all"
         style={{
           background: "linear-gradient(135deg, #f9a8d4, #fbbf24)",
           color: "white",
           border: "none",
+          borderRadius: 20,
+          padding: "3px 10px",
+          fontSize: 12,
           cursor: "pointer",
           opacity: loading ? 0.6 : 1,
+          // Bigger tap area on mobile
+          minHeight: isMobile ? 32 : "auto",
+          minWidth: isMobile ? 36 : "auto",
         }}
       >
         {loading ? "…" : "ok"}
       </button>
       <button
         onClick={() => { setOpen(false); setPw("") }}
-        className="text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors"
-        style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
+        style={{
+          background: "none", border: "none", cursor: "pointer",
+          fontSize: 13, color: "rgba(156,163,175,0.7)",
+          // Bigger tap area on mobile
+          padding: isMobile ? "6px 4px" : "0",
+          lineHeight: 1,
+        }}
       >
         ✕
       </button>
@@ -172,10 +214,12 @@ function MessageCard({
 
   return (
     <div
-      className="group relative"
+      className="relative"
       style={{
         opacity: deleting ? 0 : visible ? 1 : 0,
-        transform: deleting ? "scale(0.95) translateY(-4px)" : visible ? "translateY(0)" : "translateY(16px)",
+        transform: deleting
+          ? "scale(0.95) translateY(-4px)"
+          : visible ? "translateY(0)" : "translateY(16px)",
         transition: "opacity 0.6s ease, transform 0.6s ease",
         pointerEvents: deleting ? "none" : "auto",
       }}
@@ -187,11 +231,13 @@ function MessageCard({
           backdropFilter: "blur(10px)",
           border: "1px solid rgba(249,168,212,0.2)",
           boxShadow: "0 4px 20px rgba(244,114,182,0.07)",
+          // Extra right padding so text never goes under the delete button
+          paddingRight: "3rem",
         }}
       >
-        <DeleteButton onDelete={async () => { await handleDelete() }} />
+        <DeleteButton onDelete={handleDelete} />
 
-        <p className="text-base md:text-lg leading-relaxed text-foreground/80 font-light whitespace-pre-wrap pr-6">
+        <p className="text-base md:text-lg leading-relaxed text-foreground/80 font-light whitespace-pre-wrap">
           {msg.content}
         </p>
 
@@ -291,10 +337,8 @@ export function ReplySection() {
   const handleDelete = async (id: string) => {
     const { error } = await supabase.from("messages").delete().eq("id", id)
     if (!error) {
-      // small delay so fade-out animation plays
       setTimeout(() => {
         setMessages(prev => prev.filter(m => m.id !== id))
-        // reset form if it was in done state
         if (phase === "done") { setPhase("idle"); setMessage(""); setCharCount(0) }
       }, 500)
     }
@@ -353,11 +397,11 @@ export function ReplySection() {
               Drop a thought, anytime.
             </h2>
             <p className="text-sm text-muted-foreground font-light leading-relaxed">
-              Drop a favorite quote, a random thought, or a song you've been listening to. No pressure, just a safe space.
+              Drop a favorite quote, a random thought, or a song you&apos;ve been listening to.
               <br/>I&apos;ll be reading it. 🌸
             </p>
 
-            {/* Slot indicator */}
+            {/* Slot indicator dots */}
             {!loading && (
               <div className="flex items-center justify-center gap-2 mt-4">
                 {[0, 1, 2].map(i => (
@@ -377,15 +421,17 @@ export function ReplySection() {
             )}
           </div>
 
-          {/* Form or full state */}
+          {/* Form / states */}
           {loading ? (
             <div className="flex justify-center py-8">
               <svg className="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <circle cx="12" cy="12" r="10" stroke="rgba(244,114,182,0.4)" strokeWidth="3" strokeDasharray="32" strokeDashoffset="12"/>
               </svg>
             </div>
+
           ) : isFull && phase !== "done" ? (
             <GuestbookFull />
+
           ) : phase === "done" ? (
             <div
               className="text-center py-12"
@@ -410,6 +456,7 @@ export function ReplySection() {
                 I hope you are happy. 🌸
               </p>
             </div>
+
           ) : (
             <div
               className="relative rounded-3xl p-8"
@@ -421,13 +468,6 @@ export function ReplySection() {
                 animation: "fadeSlideUp 0.8s ease 0.2s both",
               }}
             >
-              <div className="absolute top-5 right-5">
-                <svg width="12" height="10" viewBox="0 0 24 22" fill="none">
-                  <path d="M12 20 C12 20 2 13 2 7 C2 4.2 4.2 2 7 2 C8.8 2 10.3 2.9 12 5 C13.7 2.9 15.2 2 17 2 C19.8 2 22 4.2 22 7 C22 13 12 20 12 20Z"
-                    fill="#f9a8d4" opacity="0.4"/>
-                </svg>
-              </div>
-
               <textarea
                 value={message}
                 onChange={handleChange}
@@ -463,6 +503,8 @@ export function ReplySection() {
                     boxShadow: message.trim() ? "0 4px 12px rgba(244,114,182,0.3)" : "none",
                     transform: phase === "submitting" ? "scale(0.96)" : "scale(1)",
                     transition: "all 0.3s ease",
+                    // Bigger tap target on mobile
+                    minHeight: 40,
                   }}
                 >
                   {phase === "submitting" ? (
