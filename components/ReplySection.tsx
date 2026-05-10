@@ -350,10 +350,10 @@ export function ReplySection() {
               A moment for you
             </p>
             <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-3">
-              Would you like to say something?
+              Drop a thought, anytime.
             </h2>
             <p className="text-sm text-muted-foreground font-light leading-relaxed">
-              Anything at all.. a thought, a feeling, even just a word.
+              Drop a favorite quote, a random thought, or a song you've been listening to. No pressure, just a safe space.
               <br/>I&apos;ll be reading it. 🌸
             </p>
 
@@ -431,7 +431,7 @@ export function ReplySection() {
               <textarea
                 value={message}
                 onChange={handleChange}
-                placeholder="Write anything you feel..."
+                placeholder="Your thoughts belong here..."
                 rows={5}
                 className="w-full resize-none outline-none text-base leading-relaxed font-light text-foreground/85 placeholder:text-muted-foreground/40"
                 style={{ background: "transparent", border: "none", fontFamily: "inherit" }}

@@ -224,7 +224,7 @@ export function HeroSection() {
                 fill="#f9a8d4" opacity="0.7"/>
             </svg>
             <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-light">
-              A Tribute to You
+              A quiet space for
             </span>
             <svg width="18" height="16" viewBox="0 0 20 18" fill="none">
               <path d="M10 16 C10 16 2 10 2 5.5 C2 3 4 1 6.5 1 C8 1 9.2 1.8 10 3 C10.8 1.8 12 1 13.5 1 C16 1 18 3 18 5.5 C18 10 10 16 10 16Z"

@@ -16,7 +16,7 @@ const lato = Lato({
 
 export const metadata: Metadata = {
   title: 'Pricilia',
-  description: 'A tribute to the little woman',
+  description: 'A quiet space for the little woman',
   generator: 'myself',
   icons: {
     icon: [
