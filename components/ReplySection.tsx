@@ -11,7 +11,7 @@ interface Message {
   created_at: string
 }
 
-const MAX_MESSAGES = 3
+const MAX_MESSAGES = 4
 const DELETE_PASSWORD = process.env.NEXT_PUBLIC_DELETE_PASSWORD ?? ""
 
 function formatDate(iso: string) {
@@ -261,7 +261,7 @@ function GuestbookFull() {
       }}
     >
       <div className="flex justify-center mb-4">
-        {[0, 1, 2].map(i => (
+        {[0, 1, 2, 3].map(i => (
           <svg key={i} width="18" height="16" viewBox="0 0 24 22" fill="none"
             style={{ margin: "0 3px", opacity: 0.7 + i * 0.1 }}
           >
@@ -404,7 +404,7 @@ export function ReplySection() {
             {/* Slot indicator dots */}
             {!loading && (
               <div className="flex items-center justify-center gap-2 mt-4">
-                {[0, 1, 2].map(i => (
+                {[0, 1, 2, 3].map(i => (
                   <div key={i} className="rounded-full transition-all duration-500" style={{
                     width: 8, height: 8,
                     background: i < messages.length
@@ -540,7 +540,7 @@ export function ReplySection() {
               <div className="flex items-center gap-3 mb-6">
                 <div style={{ flex: 1, height: 1, background: "linear-gradient(to right, transparent, rgba(244,114,182,0.25))" }}/>
                 <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground/60 font-light whitespace-nowrap">
-                  Her words
+                  Little Notes
                 </span>
                 <div style={{ flex: 1, height: 1, background: "linear-gradient(to left, transparent, rgba(244,114,182,0.25))" }}/>
               </div>
