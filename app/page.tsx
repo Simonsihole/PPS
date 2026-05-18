@@ -12,6 +12,7 @@ import { JsPing } from "@/components/js-ping"
 export default function TributePage() {
   return (
     <main className="min-h-screen bg-background">
+      <JsPing />
       <CuteDecorations />
       <AudioPlayer />
       <HeroSection />
