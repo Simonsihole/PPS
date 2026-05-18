@@ -7,6 +7,7 @@ import { Footer } from "@/components/footer"
 import { AudioPlayer } from "@/components/audio-player"
 import { CuteDecorations } from "@/components/cute-decorations"
 import { ReplySection } from "@/components/ReplySection"
+import { JsPing } from "@/components/js-ping"
 
 export default function TributePage() {
   return (
